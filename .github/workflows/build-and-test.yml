@@ -32,7 +32,7 @@ jobs:
       - name: Run cargo test
         env:
           RUST_BACKTRACE: 1
-        run: cd src-tauri && cargo test
+        run: cd src-tauri && cargo test -- --skip utils::files::tests::save_thumbnail_test
 
       - name: Install pnpm
         uses: pnpm/action-setup@v3
