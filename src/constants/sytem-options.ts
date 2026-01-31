@@ -34,6 +34,8 @@ export const languagesOptions : DropdownSettings = {
   items: [
     { label: "english", value: "en" },
     { label: "spanish", value: "es" },
+    { label:"german", value: "de" },
+    { label:"portuguese", value: "pt" },
   ],
   defaultValue: 0,
   type: TYPE_CONTROL_SETTINGS.DROPDOWN,
