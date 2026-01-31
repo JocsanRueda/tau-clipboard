@@ -100,8 +100,13 @@ export function toggleDarkMode(isDarkMode: boolean){
 }
 
 export const getStorageIsDarkMode=()=>{
-  // eslint-disable-next-line no-undef
-  const isDarkMode= JSON.parse(localStorage.getItem("isDarkMode") || "true");
-  if(typeof isDarkMode !== "boolean") return true;
-  return isDarkMode;
+  try {
+    // eslint-disable-next-line no-undef
+    const isDarkMode= JSON.parse(localStorage.getItem("isDarkMode") || "true");
+    if(typeof isDarkMode !== "boolean") return true;
+    return isDarkMode;
+  } catch (error) {
+    console.error("Error parsing isDarkMode from localStorage", error);
+    return true;
+  }
 };

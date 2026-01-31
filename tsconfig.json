@@ -25,7 +25,7 @@
   },
   "include": [
     "src"
-  ],
+, "test/utils/localStorage.test.ts"  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

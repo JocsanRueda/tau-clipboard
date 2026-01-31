@@ -151,3 +151,21 @@ pub async fn write_image_command(app: tauri::AppHandle, file_name: String) -> Re
         Err(e) => Err(format!("Error al ejecutar la tarea: {}", e)),
     }
 }
+
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    
+
+    #[test]
+    pub fn save_thumbnail_test() {
+        let local_data = get_local_data_path().unwrap();
+        
+        let img = image::DynamicImage::new_rgb8(800, 600);
+        save_thumbnail(&img, "test_image");
+    }
+
+}

@@ -9,3 +9,20 @@ pub fn get_data_now() -> u64 {
 
     timestamp
 }
+
+
+#[cfg(test)]
+
+mod tests{
+
+
+    use super::*;
+
+
+    #[test]
+    fn test_get_data_now(){
+        let timestamp= get_data_now();
+
+        assert!(timestamp>0);
+    }
+}

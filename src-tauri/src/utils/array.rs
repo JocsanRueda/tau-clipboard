@@ -39,3 +39,42 @@ pub fn add_image(array: &mut Vec<serde_json::Value>) {
 
     array.push(new_item);
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::Value;
+
+    #[test]
+    fn test_add_unique() {
+        let mut array: Vec<Value> = Vec::new();
+        let value = "test_value";
+        let id = "123";
+
+        add_unique(&mut array, value, id);
+
+        assert_eq!(array.len(), 1);
+        assert_eq!(array[0]["value"], "test_value");
+        assert_eq!(array[0]["type"], TEXT);
+        assert_eq!(array[0]["id"], "123");
+
+        // Adding the same value again should not increase the array size
+        add_unique(&mut array, value, id);
+        assert_eq!(array.len(), 1);
+    }
+
+    #[test]
+    fn test_add_image() {
+        let mut array: Vec<Value> = Vec::new();
+
+        add_image(&mut array);
+
+        assert_eq!(array.len(), 1);
+        assert_eq!(array[0]["type"], IMAGE);
+        assert!(array[0]["path"].as_str().unwrap().starts_with("image_"));
+
+        // Adding another image should increase the array size
+        add_image(&mut array);
+        assert_eq!(array.len(), 2);
+    }
+}
