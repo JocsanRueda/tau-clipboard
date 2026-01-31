@@ -24,10 +24,9 @@ export const EmptyStateGeometric = () => {
 
 export const EmptyStateTesseractIsometric = () => {
   return (
-    // Contenedor principal centrado con opacidad baja
+
     <div className="flex flex-col items-center justify-center h-full w-full text-gray-500 dark:text-gray-400 opacity-70 select-none pointer-events-none transition-colors duration-300">
 
-      {/* SVG del Tesseract en Proyección Isométrica (Wireframe) */}
       <svg
         width="160"
         height="160"
@@ -101,7 +100,7 @@ export const EmptyStateGhostTesseract = ({width, height,message}: {width: number
         strokeLinejoin="round"
 
         strokeDasharray="4 4"
-        className="mb-1 animate-[spin_100s_linear_infinite]"
+        className={"mb-1 animate-[spin_100s_linear_infinite]"}
       >
 
         <path d="M50 15 L85 35 L50 55 L15 35 Z" />

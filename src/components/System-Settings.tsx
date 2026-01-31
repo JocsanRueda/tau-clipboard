@@ -3,11 +3,9 @@ import { PAGES } from "@/constants/constant";
 import {
   CATEGORY_SYSTEM_SETTINGS,
   deleteAllShortcutOptions,
-  DropdownSettings,
+
   searchShorcutOptions,
   sortShortcutOptions,
-  TYPE_CONTROL_SETTINGS,
-  UnityInputSettings
 } from "@/constants/sytem-options";
 import { usePageContext } from "@/context/Page-Contex";
 import { useSystemSettingsContext } from "@/context/System-Settings-Context";
@@ -19,6 +17,7 @@ import { Button } from "./UI-Components/Button";
 import Dropdown from "./UI-Components/Dropdown";
 import ShortcutInput from "./UI-Components/Shorcut-input";
 import { UnityInput } from "./UI-Components/Unitiy-input";
+import { UnityInputSettings, DropdownSettings, TYPE_CONTROL_SETTINGS } from "@/types/system-options-type";
 export function SystemSettings(){
 
   const {handlePage}= usePageContext();
