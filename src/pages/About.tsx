@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 // Asegúrate de tener instalados estos iconos: npm install react-icons
-import { getVersion } from "@tauri-apps/api/app";
-import { getName } from "@tauri-apps/api/app";
-import { FaGithub, FaGlobe, FaReact, FaRust } from "react-icons/fa6";
-import { WEB_URLS } from "@/constants/constant";
+import { AUTHOR_NAME, LICENSE, WEB_URLS } from "@/constants/constant";
 import { Icon } from "@/svg/Icon";
+import { getName, getVersion } from "@tauri-apps/api/app";
+import { FaGithub, FaReact, FaRust } from "react-icons/fa6";
 
 export function About() {
   const { t } = useTranslation();
@@ -49,7 +48,7 @@ export function About() {
             {t("app_description")}
           </p>
 
-          <div className="grid  grid-cols-1 xxs:grid-cols-2 gap-4  justify-center items-center">
+          <div className="flex flex-row justify-center items-center">
             <a href={WEB_URLS.GITHUB} target="_blank" rel="noopener noreferrer">
               <SocialButton
                 icon={<FaGithub className="w-5 h-5" />}
@@ -57,26 +56,20 @@ export function About() {
 
               />
             </a>
-            <a href={WEB_URLS.PERSONAL_WEBSITE} target="_blank" rel="noopener noreferrer">
-              <SocialButton
-                icon={<FaGlobe className="w-5 h-5" />}
-                label="Website"
 
-              />
-            </a>
           </div>
         </div>
 
         <div className="text-center flex flex-col gap-3 text-sm text-gray-500 dark:text-gray-400">
           <div className="flex items-center justify-center gap-2 font-medium ml-auto">
-            <span>Hecho con</span>
+            <span>{t("made_with")}</span>
 
             <FaRust className="text-[#DEA584] w-5 h-5 inline" title="Rust" />
             <span>&</span>
             <FaReact className="text-[#61DAFB] w-5 h-5 inline animate-spin-slow" title="React" />
           </div>
           <p className="text-xs opacity-75">
-            © {new Date().getFullYear()} Jocsan Rueda <br/> Distribuido bajo licencia MIT.
+            © {new Date().getFullYear()} {AUTHOR_NAME}<br/> {t("distributed_under_the_license")} {LICENSE}
           </p>
         </div>
 

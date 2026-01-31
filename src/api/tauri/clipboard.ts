@@ -41,7 +41,7 @@ export const fixedClipboardItem = async (index: number, state: boolean) => {
 
 // write image
 export const writeClipboardImage = async (fileName: string) => {
-  console.log("Writing image to clipboard:", fileName);
+
   try {
     await invoke("write_image_command", { fileName: fileName });
   } catch (err) {

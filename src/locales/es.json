@@ -44,7 +44,9 @@
   "appearance": "Apariencia",
   "keyboards_shortcut": "Atajos de teclado",
   "app_description":"Tu gestor de portapapeles y atajos definitivo. Optimiza tu flujo de trabajo con velocidad y privacidad.",
-  "search": "Buscar"
+  "search": "Buscar",
+  "distributed_under_the_license": "Distribuido bajo la licencia",
+"made_with": "Hecho con"
 
 
 }

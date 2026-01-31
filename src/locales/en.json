@@ -44,7 +44,10 @@
   "appearance": "Appearance",
   "keyboards_shortcut": "Keyboards Shortcut",
   "app_description":"Your ultimate clipboard and shortcut manager. Optimize your workflow with speed and privacy.",
-  "search": "Search"
+  "search": "Search",
+  "distributed_under_the_license": "Distributed under the license",
+  "made_with": "Made with"
+
 
 
 

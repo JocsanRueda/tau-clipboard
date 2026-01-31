@@ -12,6 +12,10 @@ export const ICON_SETTINGS_SIZE=20;
 
 export const ICON_WINDOW_CONTROL_SIZE=16;
 
+export const AUTHOR_NAME="Jocsan Rueda";
+
+export const LICENSE="MIT";
+
 export const CLIPBOARD_KEY={
   FILE_HISTORY:".history.json",
   FILE_SETTINGS:".settings.json",
