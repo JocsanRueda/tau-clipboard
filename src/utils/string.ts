@@ -23,3 +23,12 @@ export const extractNumber =( value:string | number ):string=>{
 export const extractLetter =(value:string)=>{
   return value.replace(/[^a-zA-Z]/g, "");
 };
+
+// Helper function to handle value conversion
+export const formatValue = (value: string | number | boolean, type?: string): string | number | boolean => {
+  if (type === "number") {
+    return typeof value === "string" ? parseFloat(value.replace(/^0+(?!$)/, "")) : Number(value);
+  }
+  return value;
+};
+

@@ -6,7 +6,7 @@ import {
 
   searchShorcutOptions,
   sortShortcutOptions,
-} from "@/constants/sytem-options";
+} from "@/constants/system-options";
 import { usePageContext } from "@/context/Page-Contex";
 import { useSystemSettingsContext } from "@/context/System-Settings-Context";
 import { SystemSettings as SystemSettingsProps } from "@/types/system-settings.type";
@@ -18,6 +18,7 @@ import Dropdown from "./UI-Components/Dropdown";
 import ShortcutInput from "./UI-Components/Shorcut-input";
 import { UnityInput } from "./UI-Components/Unitiy-input";
 import { UnityInputSettings, DropdownSettings, TYPE_CONTROL_SETTINGS } from "@/types/system-options-type";
+import { formatValue } from "@/utils/string";
 export function SystemSettings(){
 
   const {handlePage}= usePageContext();
@@ -40,40 +41,17 @@ export function SystemSettings(){
 
   const { t } = useTranslation();
 
-  // useEffect(()=>{
-
-  //   const handleEditing = async ()=>{
-
-  //     try{
-  //       if(isEditing){
-
-  //         await offShortcuts(shorcutsRef.current);
-
-  //       }else{
-
-  //         await onShortcuts(shorcutsRef.current);
-
-  //       }
-  //     }catch(error){
-  //       console.error("Failed to set editing state", error);
-  //     }
-
-  //   };
-
-  //   handleEditing();
-  // },[isEditing]);
-
-  const handleDropdownToggle = (dropdownId: number  , key: string) => {
-    setOpenDropdown((prev) => (prev.index === dropdownId && prev.key === key ? {index: -1, key: ""} : {index: dropdownId, key}));
-  };
-
-  const handleSelect = async (key: keyof SystemSettingsProps, value: string | number | boolean) => {
+  const handleSelect = async (key: keyof SystemSettingsProps, value: string | number | boolean, type?: string) => {
+    const newValue = formatValue(value, type);
 
     setTempSettings((prevSettings) => ({
       ...prevSettings,
-      [key]: value,
+      [key]: newValue,
     }));
+  };
 
+  const handleDropdownToggle = (dropdownId: number  , key: string) => {
+    setOpenDropdown((prev) => (prev.index === dropdownId && prev.key === key ? {index: -1, key: ""} : {index: dropdownId, key}));
   };
 
   const handleShorcutChange = async (combo: string, key: string) => {
@@ -90,6 +68,7 @@ export function SystemSettings(){
   };
 
   const handleApplySettings = async (e: React.FormEvent) => {
+    console.log("Applying settings:", tempSettings);
 
     e.preventDefault();
 
@@ -157,7 +136,7 @@ export function SystemSettings(){
                     value={value as string}
                     min={cfgUnity.min}
                     max={cfgUnity.max}
-                    onSelect={(value) =>handleSelect(cfgUnity.key as keyof SystemSettingsProps, value)}
+                    onSelect={(value) =>handleSelect(cfgUnity.key as keyof SystemSettingsProps, value,cfgUnity.typeValue)}
 
                   />
                 )}

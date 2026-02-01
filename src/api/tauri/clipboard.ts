@@ -1,4 +1,4 @@
-import { DEFAULT_SYSTEM_SETTINGS } from "@/constants/sytem-options";
+import { DEFAULT_SYSTEM_SETTINGS } from "@/constants/system-options";
 import { Font } from "@/types/fonts.type";
 import { invoke } from "@tauri-apps/api/core";
 

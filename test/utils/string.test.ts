@@ -4,6 +4,7 @@ import {
   truncateString,
   extractNumber,
   extractLetter,
+  formatValue,
 } from '../../src/utils/string';
 
 describe('String Utils', () => {
@@ -95,6 +96,32 @@ describe('String Utils', () => {
       const input = 'letters';
       const expected = 'letters';
       expect(extractLetter(input)).toBe(expected);
+    });
+  });
+
+  describe('formatValue', () => {
+    test('should convert string number to number', () => {
+      const input = '00123.45';
+      const expected = 123.45;
+      expect(formatValue(input, 'number')).toBe(expected);
+    });
+
+    test('should convert number to number', () => {
+      const input = 678.9;
+      const expected = 678.9;
+      expect(formatValue(input, 'number')).toBe(expected);
+    });
+
+    test('should return boolean as is', () => {
+      const input = true;
+      const expected = true;
+      expect(formatValue(input)).toBe(expected);
+    });
+
+    test('should return string as is when type is not number', () => {
+      const input = 'some string';
+      const expected = 'some string';
+      expect(formatValue(input)).toBe(expected);
     });
   });
 });

@@ -1,4 +1,4 @@
-import { keyboardLaunchOptions } from "@/constants/sytem-options";
+import { keyboardLaunchOptions } from "@/constants/system-options";
 import { useEffect, useRef, useState } from "react";
 type Props = {
   value?: string | null;

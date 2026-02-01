@@ -1,5 +1,5 @@
 import { deleteAllClipboardItems, fixedClipboardItem, removeClipboardItem, updateClipboardItem, writeClipboardImage } from "@/api/tauri/clipboard";
-import { orderItemsOptions } from "@/constants/sytem-options";
+import { orderItemsOptions } from "@/constants/system-options";
 import { useClipboardContext } from "@/context/Clipboard-Contex";
 import { useSystemSettingsContext } from "@/context/System-Settings-Context";
 import { defaultItemClipboard } from "@/default/values";

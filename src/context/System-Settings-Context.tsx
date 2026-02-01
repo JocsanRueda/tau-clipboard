@@ -1,4 +1,4 @@
-import { DEFAULT_SYSTEM_SETTINGS } from "@/constants/sytem-options";
+import { DEFAULT_SYSTEM_SETTINGS } from "@/constants/system-options";
 import { SystemSettings } from "@/types/system-settings.type";
 import { getSettings, saveSettings } from "@/utils/store";
 import { applyFontSize } from "@/utils/theme";

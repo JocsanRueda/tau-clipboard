@@ -76,6 +76,7 @@ pub fn run() {
 
             // Initialize settings value
             let store_settings = app.store(FILE_SETTINGS).expect("Failed to open store");
+           
 
             let settings = get_settings(&store_settings);
 
