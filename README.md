@@ -24,22 +24,40 @@
 
 | 📋 Clipboard History |
 | :---: |
-| <img src="./assets/screenshot-main.png" alt="Main Interface" width="100%"> |
+| <img src="./assets/st-main.png" alt="Main Interface" width="100%"> |
 | *Clean history view with thumbnails* |
 
 <br>
 
-| 🎨 Settings & Themes |
+| Settings & Themes |
 | :---: |
-| <img src="./assets/screenshot-settings.png" alt="Settings Interface" width="100%"> |
+| <img src="./assets/st-settings.png" alt="Settings Interface" width="100%"> |
 | *Fully customizable theming engine* |
 
 <br>
 
 | ✨ Minimal Interface |
 | :---: |
-| <img src="./assets/screenshot-main-clean.png" alt="Clean Interface" width="100%"> |
+| <img src="./assets/st-main-clean.png" alt="Clean Interface" width="100%"> |
 | *Modern and unobtrusive design* |
+
+---
+
+<br>
+
+| ✨ Text editor support|
+| :---: |
+| <img src="./assets/st-main-text-editor.png" alt="Clean Interface" width="100%"> |
+| *Utils features * |
+
+---
+
+<br>
+
+| ✨ Multi languages support|
+| :---: |
+| <img src="./assets/st-main-languagues.png" alt="Clean Interface" width="100%"> |
+| *Support multi languages* |
 
 ---
 
@@ -49,8 +67,8 @@
 
 ### 📋 Clipboard History
 - **Text Support**: Automatically captures plain text. Includes a built-in editor to modify content before pasting.
-- **Image Support**: Captures copied images, displays thumbnails in the history, and allows copying them back to the clipboard.
-- **Smart Search**: Instantly find items in your history with a real-time search bar.
+- **Screenshot Support**: Captures copied images, displays thumbnails in the history, and allows copying them back to the clipboard.
+- **Search**: Instantly find items in your history with a real-time search bar.
 - **Pinning**: Pin important snippets to prevent them from being auto-deleted.
 - **Sorting**: Order items by date (ascending or descending).
 
@@ -65,7 +83,7 @@
 - **History Limits**: Set a maximum number of items to keep (e.g., 50, 100, or unlimited).
 - **Auto-Cleanup**: Configure auto-deletion of items after a specific time (e.g., 24 hours).
 - **Global Shortcuts**: Customizable keyboard shortcut (default `Ctrl+H`) to toggle the window visibility instantly.
-- **Localization**: Available in **English** and **Spanish**.
+- **Localization**: Available in **English** and **Spanish** and **Portuguese** and **German**.
 
 ### 🐧 Linux Optimized
 - **Tray Icon**: Runs quietly in the background for quick access.
@@ -73,10 +91,11 @@
 
 ## 🗺️ Roadmap
 
-We are constantly working to improve Tau. Here are features planned for future updates:
+I'am currently constantly working to improve Tau. Here are features planned for future updates:
 - [ ] Support for Audio & Video files preview.
 - [ ] Support for Document/File paths.
-- [ ] Cloud sync between devices.
+- [ ] Smart paste.
+- [ ] Smart Search.
 - [ ] Plugin system.
 
 ## 🛠️ Technologies Used
@@ -87,13 +106,3 @@ We are constantly working to improve Tau. Here are features planned for future u
 - **Styling**: TailwindCSS
 - **Icons**: React Icons
 
-## 📦 Installation
-
-### Prerequisites
-
-Ensure you have the following dependencies installed on your Linux system.
-
-**Ubuntu / Debian:**
-```bash
-sudo apt-get update
-sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libsoup-3.0-dev javascriptcoregtk-4.1-dev
