@@ -82,27 +82,20 @@
 ### ⚙️ Advanced Settings
 - **History Limits**: Set a maximum number of items to keep (e.g., 50, 100, or unlimited).
 - **Auto-Cleanup**: Configure auto-deletion of items after a specific time (e.g., 24 hours).
-- **Global Shortcuts**: Customizable keyboard shortcut (default `Ctrl+H`) to toggle the window visibility instantly.
-- **Localization**: Available in **English** and **Spanish** and **Portuguese** and **German**.
+- **Global Shortcuts**: Customizable keyboard shortcut.
+- **Localization**: Available in **English**, **Spanish**, **Portuguese**, and **German**.
 
 ### 🐧 Linux Optimized
 - **Tray Icon**: Runs quietly in the background for quick access.
 - **Performance**: Built with **Rust (Tauri)**, ensuring minimal resource usage (RAM/CPU) compared to traditional Electron apps.
 
-## 🗺️ Roadmap
+## 📦 Installation & Dependencies
 
-I'am currently constantly working to improve Tau. Here are features planned for future updates:
-- [ ] Support for Audio & Video files preview.
-- [ ] Support for Document/File paths.
-- [ ] Smart paste.
-- [ ] Smart Search.
-- [ ] Plugin system.
+To ensure Tau runs correctly on your Linux distribution, make sure you have the required system dependencies installed. Tauri apps rely on **WebKit** for rendering and **AppIndicator** for the system tray icon.
 
-## 🛠️ Technologies Used
+### Ubuntu / Debian / Mint
+If you encounter missing dependencies when installing the `.deb` file, run the following command:
 
-- **Core**: Tauri (Rust)
-- **Frontend**: React + TypeScript
-- **Build Tool**: Vite
-- **Styling**: TailwindCSS
-- **Icons**: React Icons
-
+```bash
+sudo apt update
+sudo apt install libwebkit2gtk-4.1-0 libappindicator3-1
