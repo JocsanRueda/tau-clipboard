@@ -45,7 +45,7 @@
 
 <br>
 
-| ✨ Text editor support|
+| ✏️ Text editor support|
 | :---: |
 | <img src="./assets/st-main-text-editor.png" alt="Clean Interface" width="100%"> |
 | *Utils features * |
@@ -54,7 +54,7 @@
 
 <br>
 
-| ✨ Multi languages support|
+| 🌎 Multi languages support|
 | :---: |
 | <img src="./assets/st-main-languagues.png" alt="Clean Interface" width="100%"> |
 | *Support multi languages* |
