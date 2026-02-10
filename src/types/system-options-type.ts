@@ -3,6 +3,7 @@ export const TYPE_CONTROL_SETTINGS = {
   DROPDOWN: "dropdown",
   SHORTCUT_INPUT: "shortcut_input",
   UNITY_INPUT: "unity_input",
+  SEARCH_INPUT:"search_input",
 };
 
 export type DropdownSettings = {
@@ -26,6 +27,14 @@ export type UnityInputSettings = {
 };
 
 export type ShortcutInputSettings = {
+  label: string;
+  key: string;
+  defaultValue: string;
+  type: typeof TYPE_CONTROL_SETTINGS.SHORTCUT_INPUT;
+  placeholder: string;
+};
+
+export type SearchInputSettings = {
   label: string;
   key: string;
   defaultValue: string;

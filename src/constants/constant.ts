@@ -16,6 +16,8 @@ export const AUTHOR_NAME="Jocsan Rueda";
 
 export const LICENSE="MIT";
 
+export const DEFAULT_FONT="default";
+
 export const CLIPBOARD_KEY={
   FILE_HISTORY:".history.json",
   FILE_SETTINGS:".settings.json",

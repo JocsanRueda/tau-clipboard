@@ -1,4 +1,5 @@
-import { DropdownSettings, TYPE_CONTROL_SETTINGS, UnityInputSettings, ShortcutInputSettings } from "@/types/system-options-type";
+import { DropdownSettings, TYPE_CONTROL_SETTINGS, UnityInputSettings, ShortcutInputSettings,SearchInputSettings } from "@/types/system-options-type";
+import { DEFAULT_FONT } from "./constant";
 
 export const timeOptions : DropdownSettings = {
   label:"Expiration Time",
@@ -132,6 +133,15 @@ export const keyboardLaunchOptions : ShortcutInputSettings = {
   placeholder:"press_key_combination",
 
 };
+
+export const fontOptions: SearchInputSettings={
+  label:"Font",
+  key:"font",
+  defaultValue: DEFAULT_FONT,
+  type: TYPE_CONTROL_SETTINGS.SEARCH_INPUT,
+  placeholder:"select_font",
+};
+
 export const DEFAULT_SYSTEM_SETTINGS = {
   expiration_time: timeOptions.items[timeOptions.defaultValue].value as number,
   item_limit: limitItemsOptions.items[limitItemsOptions.defaultValue].value as number,
@@ -145,11 +155,12 @@ export const DEFAULT_SYSTEM_SETTINGS = {
   search_shortcut: searchShorcutOptions.defaultValue as string,
   delete_all_shortcut: deleteAllShortcutOptions.defaultValue as string,
   sort_shortcut: sortShortcutOptions.defaultValue as string,
+  font: fontOptions.defaultValue as string,
 };
 
 export type CategoySettings={
   GeneralSettings: Array< DropdownSettings>,
-  AppearanceSettings:Array< DropdownSettings | UnityInputSettings>,
+  AppearanceSettings:Array< DropdownSettings | UnityInputSettings | SearchInputSettings>,
   KeyboardSettings:Array< ShortcutInputSettings>,
 }
 
@@ -166,6 +177,7 @@ export const CATEGORY_SYSTEM_SETTINGS : CategoySettings  = {
     verticalSizeOptions,
     fontSizeOptions,
     roundedWindowOptions,
+    fontOptions
   ],
 
   KeyboardSettings:[

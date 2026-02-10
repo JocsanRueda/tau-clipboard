@@ -48,5 +48,7 @@
   "app_description": "Seu gerenciador definitivo de área de transferência e atalhos. Otimize seu fluxo de trabalho com velocidade e privacidade.",
   "search": "Pesquisar",
   "distributed_under_the_license": "Distribuído sob a licença",
-  "made_with": "Feito com"
+  "made_with": "Feito com",
+  "font": "Fonte",
+  "default": "Padrão"
 }

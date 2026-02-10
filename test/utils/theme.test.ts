@@ -1,19 +1,16 @@
+/// <reference types="jest" />
+import { THEME } from '../../src/constants/constant';
+import { getLocalStorageSettings, saveLocalStorageTheme } from '../../src/utils/localStorage';
 import {
-  applyTheme,
   applyFontSize,
-  resetTheme,
+  applyTheme,
   getCurrentTheme,
+  getStorageIsDarkMode,
   isDark,
   isLight,
-  getThemes,
-  applyThemeById,
-  toggleDarkMode,
-  getStorageIsDarkMode,
+  resetTheme,
+  toggleDarkMode
 } from '../../src/utils/theme';
-import { getLocalStorageSettings, getLocalStorageTheme, saveLocalStorageTheme } from '../../src/utils/localStorage';
-import { getUserThemes } from '../../src/utils/store';
-import { THEME } from '../../src/constants/constant';
-import themesJson from '../../src/themes/themes.json';
 
 // Mock localStorage utils
 jest.mock('../../src/utils/localStorage', () => ({

@@ -11,4 +11,5 @@ export type SystemSettings={
   font_size:number;
   vertical_size:number;
   horizontal_size:number;
+  font:string;
 }

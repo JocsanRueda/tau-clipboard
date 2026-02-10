@@ -2,12 +2,20 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+  
+  --font-primary: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+
+
 
 @theme {
 
   --breakpoint-xs:25rem;
   --breakpoint-xxs:23rem;
-
+  --font-sans: var(--font-primary), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
    
 
   --color-default-primary-light: #f3f4f6;

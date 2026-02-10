@@ -13,4 +13,5 @@ pub struct Settings {
     pub item_order: String,
     pub vertical_size: f64,
     pub horizontal_size: f64,
+    pub font: String,
 }

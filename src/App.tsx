@@ -14,6 +14,7 @@ function App() {
   useEffect(() => {
 
     const initLang= async (lang: string) => {
+
       await initLanguage(lang );
     };
     initLang(settings.language);

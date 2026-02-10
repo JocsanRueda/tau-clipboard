@@ -48,7 +48,9 @@
   "app_description":"Tu gestor de portapapeles y atajos definitivo. Optimiza tu flujo de trabajo con velocidad y privacidad.",
   "search": "Buscar",
   "distributed_under_the_license": "Distribuido bajo la licencia",
-"made_with": "Hecho con"
+  "made_with": "Hecho con",
+  "font": "Fuente",
+  "default": "Predeterminado"
 
 
 }

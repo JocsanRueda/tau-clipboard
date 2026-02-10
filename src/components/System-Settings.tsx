@@ -1,3 +1,4 @@
+import { getSystemFont } from "@/api/tauri/clipboard";
 import { resizeWindow } from "@/api/tauri/windows";
 import { PAGES } from "@/constants/constant";
 import {
@@ -9,17 +10,20 @@ import {
 } from "@/constants/system-options";
 import { usePageContext } from "@/context/Page-Contex";
 import { useSystemSettingsContext } from "@/context/System-Settings-Context";
+import { DropdownSettings, TYPE_CONTROL_SETTINGS, UnityInputSettings, SearchInputSettings } from "@/types/system-options-type";
 import { SystemSettings as SystemSettingsProps } from "@/types/system-settings.type";
-import React, { useRef, useState } from "react";
+import { formatValue } from "@/utils/string";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ContentSettings from "./Content-Settings";
 import { Button } from "./UI-Components/Button";
 import Dropdown from "./UI-Components/Dropdown";
+import { SearchInput } from "./UI-Components/Search-Input";
 import ShortcutInput from "./UI-Components/Shorcut-input";
 import { UnityInput } from "./UI-Components/Unitiy-input";
-import { UnityInputSettings, DropdownSettings, TYPE_CONTROL_SETTINGS } from "@/types/system-options-type";
-import { formatValue } from "@/utils/string";
 export function SystemSettings(){
+
+  const [fonts, setFonts] = useState<string[]>([]);
 
   const {handlePage}= usePageContext();
 
@@ -54,6 +58,24 @@ export function SystemSettings(){
     setOpenDropdown((prev) => (prev.index === dropdownId && prev.key === key ? {index: -1, key: ""} : {index: dropdownId, key}));
   };
 
+  useEffect(()=>{
+
+    const getFont= async ()=>{
+
+      try{
+
+        const fonts = await getSystemFont();
+        setFonts(fonts);
+      }
+      catch (error) {
+        console.error("Error fetching system fonts:", error);
+        return;
+      }
+
+    };
+    getFont();
+  },[]);
+
   const handleShorcutChange = async (combo: string, key: string) => {
     handleSelect(key as keyof SystemSettingsProps, combo);
     if (key ===  sortShortcutOptions.key) {
@@ -68,7 +90,6 @@ export function SystemSettings(){
   };
 
   const handleApplySettings = async (e: React.FormEvent) => {
-    console.log("Applying settings:", tempSettings);
 
     e.preventDefault();
 
@@ -122,6 +143,8 @@ export function SystemSettings(){
 
             const cfgDropdown= cfg as DropdownSettings;
 
+            const cfgSearchInput= cfg as SearchInputSettings;
+
             const value= tempSettings[cfg.key as keyof SystemSettingsProps];
 
             return(
@@ -146,6 +169,17 @@ export function SystemSettings(){
                     options={cfgDropdown.items}
                     onSelect={(value) => handleSelect(cfgDropdown.key as keyof SystemSettingsProps, value)}
                     selectedValue={tempSettings[cfgDropdown.key as keyof SystemSettingsProps]}
+                    isOpen={openDropdown.index === idx && openDropdown.key === cfgDropdown.key}
+                    onToggle={() => handleDropdownToggle(idx, cfgDropdown.key)}
+                  />
+
+                )}
+
+                {cfg.type === TYPE_CONTROL_SETTINGS.SEARCH_INPUT && (
+                  <SearchInput
+                    options={fonts.map((font) => ({ label: font, value: font }))}
+                    onSelect={(value) => handleSelect(cfgSearchInput.key as keyof SystemSettingsProps, value)}
+                    selectedValue={tempSettings[cfgSearchInput.key as keyof SystemSettingsProps]}
                     isOpen={openDropdown.index === idx && openDropdown.key === cfgDropdown.key}
                     onToggle={() => handleDropdownToggle(idx, cfgDropdown.key)}
                   />

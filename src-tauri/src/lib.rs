@@ -24,7 +24,7 @@ use std::sync::{Arc, Mutex};
 use crate::constants::clipboard_key::{FILE_HISTORY, FILE_SETTINGS};
 use crate::utils::files::write_image_command;
 
-use crate::utils::settings::{get_system_font_command, list_font};
+use crate::utils::font::{get_system_font_command};
 
 pub struct AppStore(pub Arc<Mutex<Arc<Store<Wry>>>>);
 
@@ -170,7 +170,7 @@ pub fn run() {
             write_image_command,
             get_system_font_command,
             resize_window_command,
-            list_font
+
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

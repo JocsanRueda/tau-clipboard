@@ -1,4 +1,4 @@
-import { DEFAULT_THEME_INDEX, THEME } from "@/constants/constant";
+import { DEFAULT_FONT, DEFAULT_THEME_INDEX, THEME } from "@/constants/constant";
 import { ThemeFile, ThemesFileJson } from "@/types/theme.type";
 import themesJson from "../themes/themes.json";
 import { getLocalStorageSettings, getLocalStorageTheme, saveLocalStorageTheme } from "./localStorage";
@@ -21,9 +21,26 @@ export async function applyTheme(theme: ThemeFile) {
   saveLocalStorageTheme(theme);
 }
 
+export function applyFontSettings(fontSize: number, fontType: string) {
+  applyFontSize(fontSize);
+
+  applyFontType(fontType);
+}
+
 export function applyFontSize(fontSize: number) {
   const root = document.documentElement;
   root.style.fontSize = fontSize + "px";
+}
+
+export function applyFontType(fontType: string) {
+  const root = document.documentElement;
+
+  root.style.removeProperty("font-family");
+  root.style.removeProperty("--font-primary");
+
+  if (fontType=== DEFAULT_FONT) return;
+
+  root.style.setProperty("--font-primary", fontType);
 }
 
 export function resetTheme() {
@@ -33,8 +50,9 @@ export function resetTheme() {
   root.style.removeProperty("--color-secondary");
   root.style.removeProperty("--border-width");
   root.style.removeProperty("--color-tertiary");
-  root.style.removeProperty("--font-type");
+  root.style.removeProperty("--font-primary");
   root.style.removeProperty("--font-size");
+  root.style.removeProperty("font-family"); // Aseguramos limpiar estilos inline al resetear
 
 }
 

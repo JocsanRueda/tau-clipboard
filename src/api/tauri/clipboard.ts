@@ -1,5 +1,4 @@
 import { DEFAULT_SYSTEM_SETTINGS } from "@/constants/system-options";
-import { Font } from "@/types/fonts.type";
 import { invoke } from "@tauri-apps/api/core";
 
 // remove item
@@ -68,24 +67,15 @@ export const offShortcuts = async (keys: string) => {
 };
 
 // get system font
-export const getSystemFont = async (): Promise<Font> => {
+export const getSystemFont = async (): Promise<string[]> => {
   try {
-    const font: string = await invoke("get_system_font_command");
-    const fontParts = font.split(" ");
-    const exists = fontParts.length > 0;
+    const font = await invoke("get_system_font_command");
 
-    if (!exists) return {exists:false} as Font;
+    return font as string[];
 
-    const fontObj: Font = {
-      name: fontParts[0],
-      size: parseInt(fontParts[1])+"px"  || "12px",
-      exists,
-    };
-
-    return  fontObj;
   } catch (err) {
     console.error("Error getting Gnome font:", err);
-    return {} as Font;
+    return [];
   }
 };
 

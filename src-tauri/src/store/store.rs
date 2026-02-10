@@ -38,6 +38,7 @@ fn default_settings() -> Settings {
         item_order: "ascending".to_string(),
         horizontal_size: 380.0,
         vertical_size: 440.0,
+        font: "default".to_string(),
     }
 }
 

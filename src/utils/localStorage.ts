@@ -1,6 +1,6 @@
 import { SystemSettings } from "@/types/system-settings.type";
 import { Theme, ThemeFile } from "@/types/theme.type";
-import { applyFontSize } from "./theme";
+import { applyFontSettings } from "./theme";
 
 export function saveLocalStorageTheme(theme: Theme) {
   // eslint-disable-next-line no-undef
@@ -25,7 +25,7 @@ export function getLocalStorageTheme(): ThemeFile | null {
 export function saveLocalStorageSettings(settings: SystemSettings ) {
   // eslint-disable-next-line no-undef
   localStorage.setItem("systemSettings", JSON.stringify(settings));
-  applyFontSize(settings.font_size);
+  applyFontSettings(settings.font_size, settings.font);
 }
 
 export function getLocalStorageSettings(): SystemSettings | null {

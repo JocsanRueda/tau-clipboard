@@ -1,7 +1,7 @@
 import { DEFAULT_SYSTEM_SETTINGS } from "@/constants/system-options";
 import { SystemSettings } from "@/types/system-settings.type";
 import { getSettings, saveSettings } from "@/utils/store";
-import { applyFontSize } from "@/utils/theme";
+import { applyFontSettings, applyFontSize } from "@/utils/theme";
 import React,{ createContext, useCallback, useEffect, useMemo, useState } from "react";
 
 type SystemSettingsContextValue={
@@ -26,10 +26,10 @@ export const SystemSettingsProvider:React.FC<{children: React.ReactNode}> = ({ c
 
       if(s){
         setSystemSettings(s);
-        applyFontSize(s.font_size);
+        applyFontSettings(s.font_size, s.font);
 
       }else{
-        applyFontSize(DEFAULT_SYSTEM_SETTINGS.font_size);
+        applyFontSettings(DEFAULT_SYSTEM_SETTINGS.font_size, DEFAULT_SYSTEM_SETTINGS.font);
         saveSettings(DEFAULT_SYSTEM_SETTINGS);
         setSystemSettings(DEFAULT_SYSTEM_SETTINGS);
 

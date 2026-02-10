@@ -48,5 +48,7 @@
   "app_description": "Ihr ultimativer Zwischenablage- und Shortcut-Manager. Optimieren Sie Ihren Workflow mit Geschwindigkeit und Privatsphäre.",
   "search": "Suchen",
   "distributed_under_the_license": "Vertrieben unter der Lizenz",
-  "made_with": "Gemacht mit"
+  "made_with": "Gemacht mit",
+  "font": "Schriftart",
+  "default": "Standard"
 }

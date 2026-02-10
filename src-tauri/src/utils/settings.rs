@@ -31,15 +31,6 @@ pub fn get_kde_font() -> String {
     "DefaultFont".to_string()
 }
 
-#[tauri::command]
-pub fn get_system_font_command() -> String {
-    let mut font = get_gnome_font();
-
-    if font == "" || font == "DefaultFont" {
-        font = get_kde_font();
-    }
-    font
-}
 
 #[tauri::command]
 pub fn list_font() -> Result<Vec<String>, String> {
