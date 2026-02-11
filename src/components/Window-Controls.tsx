@@ -44,13 +44,13 @@ export default function WindowControls({roundedWindow,setIsMaximized}: WindowCon
       <button
         onClick={handleMinimize}
       >
-        <VscChromeMinimize size={ICON_WINDOW_CONTROL_SIZE} className="font-bold  mr-0.5 transition-colors duration-100 text-gray-900 dark:text-quaternary hover:text-gray-500 hover:dark:text-quaternary-dark" style={{strokeWidth:0.5}}/>
+        <VscChromeMinimize size={ICON_WINDOW_CONTROL_SIZE} className="font-bold  mr-0.5 transition-colors duration-100 text-gray-900 dark:text-quaternary hover:text-gray-500 hover:dark:text-quaternary-dark" style={{strokeWidth:0.4}}/>
       </button>
 
       <button
         onClick={handleMaximize}
       >
-        <VscChromeMaximize  size={ICON_WINDOW_CONTROL_SIZE} className="font-bold  transition-colors duration-100 text-gray-900 dark:text-quaternary hover:text-gray-500 hover:dark:text-quaternary-dark" style={{strokeWidth:0.6}}/>
+        <VscChromeMaximize  size={ICON_WINDOW_CONTROL_SIZE} className="font-bold  transition-colors duration-100 text-gray-900 dark:text-quaternary hover:text-gray-500 hover:dark:text-quaternary-dark" style={{strokeWidth:0.4}}/>
       </button>
       <button
         onClick={handleClose}
