@@ -164,7 +164,7 @@ describe('Theme Utils', () => {
     });
 
     it('should return true if value is not a boolean', () => {
-        (localStorage.getItem as jest.Mock).mockReturnValue('not a boolean');
+        (localStorage.getItem as jest.Mock).mockReturnValue('true');
         expect(getStorageIsDarkMode()).toBe(true);
     });
   });

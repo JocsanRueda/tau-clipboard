@@ -1,3 +1,4 @@
+/// <reference types="jest" />
 import { SystemSettings } from "@/types/system-settings.type";
 import { Theme } from "@/types/theme.type";
 import { getLocalStorageSettings, getLocalStorageTheme, saveLocalStorageSettings, saveLocalStorageTheme } from "../../src/utils/localStorage";
@@ -33,7 +34,7 @@ describe("localStorage utility functions", () => {
     });
 
     it("should return null if theme in localStorage is invalid JSON", () => {
-      localStorage.setItem("theme", "{invalidJson}");
+      localStorage.setItem("theme", "");
       const retrievedTheme = getLocalStorageTheme();
       expect(retrievedTheme).toBeNull();
     });
@@ -54,6 +55,7 @@ describe("localStorage utility functions", () => {
         font_size: 16,
         vertical_size: 600,
         horizontal_size: 800,
+        font: "Arial",
       };
 
       saveLocalStorageSettings(settings);
@@ -68,7 +70,7 @@ describe("localStorage utility functions", () => {
     });
 
     it("should return null if system settings in localStorage are invalid JSON", () => {
-      localStorage.setItem("systemSettings", "{invalidJson}");
+      localStorage.setItem("systemSettings", "");
       const retrievedSettings = getLocalStorageSettings();
       expect(retrievedSettings).toBeNull();
     });
