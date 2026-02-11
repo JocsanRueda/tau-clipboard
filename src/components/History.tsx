@@ -99,6 +99,8 @@ export const History = () => {
   //delete item from data list
   const handleDelete = async (index: number,list?:ItemClipboard[]) => {
 
+    if (dataList.length ===0 ) return;
+
     const lenght = dataList.length-1;
 
     const newDataList = (list ?? dataList ?? []).filter((_, i) => i !== index);
