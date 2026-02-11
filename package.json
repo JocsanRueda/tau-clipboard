@@ -63,5 +63,8 @@
     "onlyBuiltDependencies": [
       "esbuild"
     ]
+  },
+  "overrides": {
+    "tar":">=7.5.3"
   }
 }
