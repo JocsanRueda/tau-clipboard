@@ -5,7 +5,7 @@ use crate::AppStore;
 use serde_json::json;
 use std::sync::{Arc, Mutex};
 use std::time::{SystemTime, UNIX_EPOCH};
-use tauri::AppHandle;
+use tauri::{AppHandle, Emitter};
 use tauri::Wry;
 use tauri_plugin_clipboard_manager::ClipboardExt;
 use tauri_plugin_store::Store;
@@ -26,15 +26,15 @@ pub fn get_settings(store: &Arc<Store<Wry>>) -> Settings {
 
 fn default_settings() -> Settings {
     Settings {
-        expiration_time: 24,
+        expiration_time: 86400, // 24 hours in seconds
         keyboard_shortcut: "Ctrl+H".to_string(),
         search_shortcut: "Ctrl+F".to_string(),
-        delete_all_shortcut: "Ctrl+Del".to_string(),
+        delete_all_shortcut: "Ctrl+Backspace".to_string(),
         sort_shortcut: "Ctrl+S".to_string(),
-        language: "es".to_string(),
+        language: "en".to_string(),
         item_limit: 200,
-        rounded_window_corners: false,
-        font_size: "12".to_string(),
+        rounded_window_corners: true,
+        font_size: 13,
         item_order: "ascending".to_string(),
         horizontal_size: 380.0,
         vertical_size: 440.0,
@@ -186,6 +186,7 @@ fn delete_item_logic(history: &mut Vec<serde_json::Value>, index: usize) -> Resu
 //Delete all items
 #[tauri::command]
 pub fn delete_all_items_command(
+    app: AppHandle,
     state: tauri::State<'_, AppStore>,
     global_history: tauri::State<'_, Arc<Mutex<Vec<serde_json::Value>>>>,
 ) {
@@ -198,6 +199,11 @@ pub fn delete_all_items_command(
     store.save().expect("Failed to save store");
 
     delete_all_images();
+    
+
+    if let Err(e)= app.emit("reset-history", ()){
+        eprint!("Failed to emit reset-history event: {}", e);
+    }
 }
 
 fn delete_all_items_logic(history: &mut Vec<serde_json::Value>) {

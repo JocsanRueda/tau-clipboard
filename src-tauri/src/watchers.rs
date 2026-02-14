@@ -13,7 +13,7 @@ use std::path::PathBuf;
 use std::sync::mpsc::channel;
 use std::sync::{Arc, Mutex};
 use std::{thread, time::Duration};
-use tauri::AppHandle;
+use tauri::{AppHandle,Listener};
 use tauri::Emitter;
 use tauri::Wry;
 use tauri_plugin_clipboard_manager::ClipboardExt;
@@ -32,6 +32,16 @@ pub fn start_clipboard_watcher(
     let worker_app_handle = app_handle.clone();
     let worker_store_global = store_global.clone();
     let worker_history = global_history.clone();
+
+    let last_clippboard_content = Arc::new(Mutex::new(String::new()));
+    let last_content_listener= last_clippboard_content.clone();
+    
+
+    app_handle.listen("reset-history", move |_event| {
+        if let Ok(mut last_value)= last_content_listener.lock() {
+            *last_value = String::new();
+        }
+    });
 
     thread::spawn(move || {
         let _ = set_current_thread_priority(ThreadPriority::Min);
@@ -60,9 +70,11 @@ pub fn start_clipboard_watcher(
                 }
             };
 
+            let id = Uuid::new_v4().to_string();
+
             let (last_item, file_name) = {
                 let mut history = worker_history.lock().unwrap();
-                add_image(&mut *history);
+                add_image(&mut *history, id);
                 let last = history.last().unwrap().clone();
                 let name = last["path"].as_str().unwrap().to_string();
                 (last, name)
@@ -120,17 +132,25 @@ pub fn start_clipboard_watcher(
         }
     });
 
+    let last_content_watcher = last_clippboard_content.clone();
+
     thread::spawn(move || {
         let _ = set_current_thread_priority(ThreadPriority::Min);
-        let mut last_value = String::new();
+    
 
         loop {
             if let Ok(current) = app_handle.clipboard().read_text() {
-                if current != last_value && !current.is_empty() {
+                if !current.is_empty() {
+
+                    let mut last_value = last_content_watcher.lock().unwrap();
+
+                    if current != *last_value {
+
                     let mut history = global_history.lock().unwrap();
 
                     if max_history == -1 || history.len() < max_history as usize {
-                        last_value = current;
+                        
+                        *last_value = current;
 
                         let last_length = history.len();
 
@@ -142,7 +162,7 @@ pub fn start_clipboard_watcher(
                             // Emit the clipboard change event
 
                             let payload = json!({
-                                "value": last_value,
+                                "value": *last_value,
                                 "path": EMPTY,
                                 "type": TEXT,
                                 "id": id,
@@ -158,6 +178,7 @@ pub fn start_clipboard_watcher(
                     }
                 }
             }
+        }
 
             thread::sleep(Duration::from_millis(500));
         }

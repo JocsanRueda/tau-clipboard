@@ -1,10 +1,12 @@
 import { BaseContentFileProps } from "./base-content-file.type";
 import { fileType } from "./file.type";
-import { ItemActionMenu } from "./item-action-menu.type";
+
 /* eslint-disable no-unused-vars */
-export type ContentCardProps = BaseContentFileProps & {
-  type: fileType;
-  toggleActions: ItemActionMenu;
+export type ContentCardProps   = BaseContentFileProps & {
+  fixed: boolean;
+  showMenu:boolean;
+  activeEdit:boolean;
+  type:fileType;
   handleMenu: () => void;
   handleDelete: () => void;
   handleEdit: () => void;

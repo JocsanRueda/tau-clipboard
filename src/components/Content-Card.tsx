@@ -7,7 +7,7 @@ import ActionMenu from "./Action-Menu";
 import ContentRenderer from "./Content-Renderer";
 import CopyToast from "./UI-Components/CopyToast";
 
-function ContentCard({ text, type,url, toggleActions, handleMenu , handleDelete ,handleEdit, handleSave, handleFixed, handleCopy}: ContentCardProps) {
+function ContentCard({  text, fixed,type, url, handleMenu , handleDelete ,handleEdit, handleSave, handleFixed, handleCopy,showMenu,activeEdit}: ContentCardProps) {
 
   const [newText, setNewText] = useState<string>("");
   const [showToast, setShowToast] = useState(false);
@@ -33,9 +33,9 @@ function ContentCard({ text, type,url, toggleActions, handleMenu , handleDelete 
   // Handle copy action
   const handleCopyInternal = () => {
 
-    if (toggleActions.activeEdit) return;
+    if (activeEdit) return;
 
-    if (toggleActions.showMenu) {
+    if (showMenu) {
       handleMenu();
       setNewText(text);
     }
@@ -48,15 +48,15 @@ function ContentCard({ text, type,url, toggleActions, handleMenu , handleDelete 
   // Sync newText with text prop when edit mode changes
   useEffect(()=>{
 
-    if (toggleActions.activeEdit){
+    if (activeEdit){
       setNewText(text);
     }else{
       setNewText("");
     }
-  },[toggleActions.activeEdit, text]);
+  },[activeEdit, text]);
 
   const getPinIcon = () => {
-    return toggleActions.fixed ? (<TiPin
+    return fixed ? (<TiPin
       className=" text-gray-600 dark:text-quaternary transition-transform duration-150 hover:scale-115 cursor-pointer"
       onClick={handleFixed}
     />): (<TiPinOutline
@@ -69,7 +69,7 @@ function ContentCard({ text, type,url, toggleActions, handleMenu , handleDelete 
     <div className="flex flex-row justify-between items-stretch  overflow-hidden">
       <div className="transition-[border] duration-100 w-full bg-gray-200 dark:bg-secondary py-2 px-2 mx-2 rounded-md hover:shadow-lg flex flex-row justify-between border-width-selected  border-gray-300 dark:border-tertiary-dark hover:border-gray-400 hover:dark:border-tertiary-light  transition-border  gap-2   "  onClick={handleCopyInternal} >
 
-        {<ContentRenderer type={type} text={text} newText={newText} url={url} editText={toggleActions.activeEdit} setNewText={setNewText} />}
+        {<ContentRenderer type={type} text={text} newText={newText} url={url} editText={activeEdit} setNewText={setNewText} />}
 
         <section className="ml-auto flex flex-col justify-between gap-2" onClick={(e)=>{e.stopPropagation();}}>
 
@@ -86,12 +86,14 @@ function ContentCard({ text, type,url, toggleActions, handleMenu , handleDelete 
         <CopyToast onComplete={() => setShowToast(false)} text={t("copied")} /> :
 
         <ActionMenu
-          toggleMenu={toggleActions.showMenu}
+          fixed={fixed}
+          toggleMenu={showMenu}
           handleDelete={handleDelete}
           disabledEdit={type !== "text"}
-          editText={toggleActions.activeEdit}
+          editText={activeEdit}
           handleEdit={handleEdit}
           handleSave={handleSaveText}
+          showMenu={showMenu}
         />
       }
 

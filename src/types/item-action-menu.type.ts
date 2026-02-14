@@ -1,5 +1,4 @@
-export type ItemActionMenu ={
-    showMenu:boolean,
-    activeEdit:boolean,
-    fixed: boolean,
-   }
+export type  MenuState = {
+  menuId: string | null;
+  editId: string | null;
+}

@@ -5,4 +5,6 @@ export type ActionMenuProps = {
   editText?: boolean;
   handleEdit: () => void;
   handleSave: () => void;
+  fixed: boolean;
+  showMenu: boolean;
 };

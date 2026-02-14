@@ -76,9 +76,12 @@ pub fn run() {
 
             // Initialize settings value
             let store_settings = app.store(FILE_SETTINGS).expect("Failed to open store");
+          
            
 
             let settings = get_settings(&store_settings);
+
+            println!("Settings loaded: {:?}", settings);
 
             // enable global shorcut
             //setup_shortcuts_on_startup(app, settings.keyboard_shortcut.clone())?;

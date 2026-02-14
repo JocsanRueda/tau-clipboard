@@ -9,7 +9,7 @@ pub struct Settings {
     pub sort_shortcut: String,
     pub language: String,
     pub rounded_window_corners: bool,
-    pub font_size: String,
+    pub font_size: i16,
     pub item_order: String,
     pub vertical_size: f64,
     pub horizontal_size: f64,

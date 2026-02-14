@@ -2,9 +2,7 @@ import { deleteAllClipboardItems, fixedClipboardItem, removeClipboardItem, updat
 import { orderItemsOptions } from "@/constants/system-options";
 import { useClipboardContext } from "@/context/Clipboard-Contex";
 import { useSystemSettingsContext } from "@/context/System-Settings-Context";
-import { defaultItemClipboard } from "@/default/values";
 import { useClipboardWatcher } from "@/hooks/useClipboardWatcher";
-import { ItemActionMenu } from "@/types/item-action-menu.type";
 
 import { ItemClipboard } from "@/types/item-clipboard.type";
 import { newItemPayload } from "@/types/new-item-payload";
@@ -16,12 +14,13 @@ import ContentCard from "./Content-Card";
 import TopBar from "./TopBar";
 
 import { COPY_COLDOWN_TIME } from "@/constants/constant";
+import { MenuState } from "@/types/item-action-menu.type";
 import { normalizeString } from "@/utils/string";
 import { NoResult } from "./Not-Result";
 
 export const History = () => {
 
-  const {dataList,setDataList,toggleActions,setToggleActions} = useClipboardContext();
+  const {dataList,setDataList} = useClipboardContext();
 
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
@@ -29,9 +28,16 @@ export const History = () => {
 
   const [filter, setFilter] = useState<string>("");
 
+  const [fixedCounter, setFixedCounter] = useState<number>(0);
+
   const copyCoolDownRef=useRef<Record<string,number>>({});
 
   const { t } = useTranslation();
+
+  const [menuState, setMenuState] = useState<MenuState>({
+    menuId: null,
+    editId: null,
+  });
 
   // Save the dataList to the store whenever it changes
   useClipboardWatcher((newText) => {
@@ -47,18 +53,25 @@ export const History = () => {
     // Check if the new data list is different from the current one
     if (newDataList.length !== dataList.length) {
       setDataList(newDataList);
-      const newToggleActions = [...toggleActions, defaultItemClipboard]  ;
-      setToggleActions(newToggleActions);
 
     }
   };
 
   //data list content originall data
 
-  const handleToggleMenu = (index: number) => {
-    const newToggleActions = Array((dataList.length)).fill(defaultItemClipboard);
-    newToggleActions[index] = { showMenu: !toggleActions[index].showMenu, activeEdit: false };
-    setToggleActions(newToggleActions);
+  const handleToggleMenu = (id: string ) => {
+
+    // dataList[index].showMenu = !dataList[index].showMenu;
+    // setDataList([...dataList]);
+
+    setMenuState((prevState) => ({
+      editId: null,
+      menuId: prevState.menuId===id?null:id,
+    }));
+
+    // const newToggleActions = Array((dataList.length)).fill(defaultItemClipboard);
+    // newToggleActions[index] = { showMenu: !toggleActions[index].showMenu, activeEdit: false };
+    // setToggleActions(newToggleActions);
   };
 
   //save new text after edit
@@ -87,13 +100,28 @@ export const History = () => {
       }
     }
 
-    updateToggleActions(index, { showMenu: false, activeEdit: false });
+    resetMenuState();
+
+    // updateToggleActions(index, { showMenu: false, activeEdit: false });
 
   };
 
   //toggle edit mode
-  const handleEdit = (index: number) => {
-    updateToggleActions(index, { activeEdit: !toggleActions[index].activeEdit });
+  const handleEdit = (id: string) => {
+
+    setMenuState((prevState) => ({
+      ...prevState,
+      editId: prevState.editId===id?null:id,
+    }));
+
+    // updateToggleActions(index, { activeEdit: !dataList[index].activeEdit });
+  };
+
+  const resetMenuState = () => {
+    setMenuState({
+      menuId: null,
+      editId: null,
+    });
   };
 
   //delete item from data list
@@ -104,8 +132,6 @@ export const History = () => {
     const lenght = dataList.length-1;
 
     const newDataList = (list ?? dataList ?? []).filter((_, i) => i !== index);
-    const newToggleActions = (toggleActions ?? []).filter((_, i) => i !== index);
-    setToggleActions(newToggleActions);
     setDataList(newDataList);
 
     // If the index is the last one, clear the clipboard
@@ -127,18 +153,12 @@ export const History = () => {
 
   //toggle fixed state
   const handleFixed = async (index: number) => {
-    updateToggleActions(index, { fixed: !toggleActions[index].fixed });
 
     updateDataList(index, { fixed: !dataList[index].fixed });
 
-    await fixedClipboardItem(index,(!toggleActions[index].fixed));
-  };
+    await fixedClipboardItem(index,(!dataList[index].fixed));
 
-  // Update toggleActions state for a specific index
-  const updateToggleActions = (index: number, updates: Partial<ItemActionMenu>) => {
-    const newToggleActions = [...toggleActions];
-    newToggleActions[index] = { ...newToggleActions[index], ...updates };
-    setToggleActions(newToggleActions);
+    setFixedCounter(fixedCounter + (dataList[index].fixed ? -1 : 1));
   };
 
   // Update dataList state for a specific index
@@ -155,9 +175,13 @@ export const History = () => {
 
   const deleteAllItem=async()=>{
 
+    if (fixedCounter === dataList.length) return;
+    resetMenuState();
+
     setDataList(dataList.filter((item) => item.fixed));
-    setToggleActions(toggleActions.filter((action) => action.fixed));
+
     await clear();
+
     await deleteAllClipboardItems();
 
   };
@@ -188,9 +212,11 @@ export const History = () => {
 
   }, [settings.item_order, finalData.length]);
 
-  const handleMenuClick = (index: number) => () => handleToggleMenu(index);
+  console.log("render history",{finalData});
+
+  const handleMenuClick = (id: string) => () => handleToggleMenu(id);
   const handleDeleteClick = (index: number) => () => handleDelete(index);
-  const handleEditClick = (index: number) => () => handleEdit(index);
+  const handleEditClick = (id: string) => () => handleEdit(id);
   const handleSaveClick = (index: number) => (newText: string) => handleSave(index, newText);
   const handleFixedClick = (index: number) => () => handleFixed(index);
 
@@ -231,6 +257,8 @@ export const History = () => {
 
   };
 
+  console.log("menu state",menuState);
+
   return (
 
     <div className="flex flex-col h-full bg-gray-200 dark:bg-primary">
@@ -252,15 +280,17 @@ export const History = () => {
                 <ContentCard
                   key={item.id}
                   text={item.value}
+                  fixed={item.fixed}
                   type={item.type}
                   url={item.path}
-                  toggleActions={toggleActions[newIndex]}
-                  handleMenu={handleMenuClick(newIndex)}
+                  handleMenu={handleMenuClick(item.id)}
                   handleDelete={handleDeleteClick(newIndex)}
-                  handleEdit={handleEditClick(newIndex)}
+                  handleEdit={handleEditClick(item.id)}
                   handleSave={handleSaveClick(newIndex)}
                   handleFixed={handleFixedClick(newIndex)}
                   handleCopy={handleCopyClick(newIndex)}
+                  showMenu={menuState.menuId===item.id}
+                  activeEdit={menuState.editId===item.id}
                 />
               );
             }):

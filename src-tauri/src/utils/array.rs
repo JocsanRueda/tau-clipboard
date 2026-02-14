@@ -24,12 +24,13 @@ pub fn add_unique(array: &mut Vec<serde_json::Value>, value: &str,id:&str) {
     }
 }
 
-pub fn add_image(array: &mut Vec<serde_json::Value>) {
+pub fn add_image(array: &mut Vec<serde_json::Value>, id: String ){
     let last_value = normalize_string(IMAGE);
 
     let timestamp = get_data_now();
 
     let new_item = json!({
+        "id":id,
         "value": last_value,
         "type": IMAGE,
         "fixed": false,
@@ -67,14 +68,14 @@ mod tests {
     fn test_add_image() {
         let mut array: Vec<Value> = Vec::new();
 
-        add_image(&mut array);
+        add_image(&mut array, "123".to_string());
 
         assert_eq!(array.len(), 1);
         assert_eq!(array[0]["type"], IMAGE);
         assert!(array[0]["path"].as_str().unwrap().starts_with("image_"));
 
         // Adding another image should increase the array size
-        add_image(&mut array);
+        add_image(&mut array, "124".to_string());
         assert_eq!(array.len(), 2);
     }
 }

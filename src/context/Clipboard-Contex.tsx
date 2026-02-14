@@ -1,29 +1,24 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { initStore, } from "@/hooks/useInitStore";
 import { ItemClipboard } from "@/types/item-clipboard.type";
-import { ItemActionMenu } from "@/types/item-action-menu.type";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 type ClipboardCtx = {
   dataList: ItemClipboard[];
   setDataList: React.Dispatch<React.SetStateAction<ItemClipboard[]>>;
-  toggleActions: ItemActionMenu[];
-  setToggleActions: React.Dispatch<React.SetStateAction<ItemActionMenu[]>>;
 };
 
 const ClipboardContext = createContext<ClipboardCtx | undefined>(undefined);
 
 export const ClipboardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [dataList, setDataList] = useState<ItemClipboard[]>([]);
-  const [toggleActions, setToggleActions] = useState<ItemActionMenu[]>([]);
 
   useEffect(() => {
     let mounted = true;
     (async () => {
       try {
-        const { dataList: initialData, toggleActions: initialToggles } = await initStore();
+        const { dataList: initialData } = await initStore();
         if (!mounted) return;
         setDataList(initialData ?? []);
-        setToggleActions(initialToggles ?? []);
       } catch (e) {
         console.error("initStore failed", e);
       }
@@ -34,8 +29,8 @@ export const ClipboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, []);
 
   const value = useMemo(
-    () => ({ dataList, setDataList, toggleActions, setToggleActions }),
-    [dataList, toggleActions]
+    () => ({ dataList, setDataList }),
+    [dataList]
   );
 
   return <ClipboardContext.Provider value={value}>{children}</ClipboardContext.Provider>;
