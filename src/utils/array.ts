@@ -27,8 +27,6 @@ export function addUnique(array: ItemClipboard[], text: string): ItemClipboard[]
     type: "text",
     path: "",
     fixed: false,
-    showMenu: false,
-    activeEdit: false
   };
 
   if (!alreadyExists(array, text)) {
@@ -46,8 +44,6 @@ export function add(array: ItemClipboard[], item: newItemPayload): ItemClipboard
     type: item.type,
     path: item.path,
     fixed: false,
-    showMenu: false,
-    activeEdit: false
   };
 
   return [...array, newItemClipboard];

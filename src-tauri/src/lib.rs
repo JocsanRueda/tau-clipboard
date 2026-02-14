@@ -81,7 +81,7 @@ pub fn run() {
 
             let settings = get_settings(&store_settings);
 
-            println!("Settings loaded: {:?}", settings);
+     
 
             // enable global shorcut
             //setup_shortcuts_on_startup(app, settings.keyboard_shortcut.clone())?;
