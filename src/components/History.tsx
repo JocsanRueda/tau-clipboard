@@ -22,7 +22,7 @@ export const History = () => {
 
   const {dataList,setDataList} = useClipboardContext();
 
-  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const [currentId, setCurrentId] = useState<string | null>(null);
 
   const {settings} = useSystemSettingsContext();
 
@@ -143,8 +143,8 @@ export const History = () => {
     // Remove the item from the store
     await removeClipboardItem(index);
 
-    if (index===currentIndex) {
-      setCurrentIndex(null);
+    if (dataList[index]?.id === currentId) {
+      setCurrentId(null);
     }
 
     return newDataList;
@@ -220,11 +220,11 @@ export const History = () => {
   const handleSaveClick = (index: number) => (newText: string) => handleSave(index, newText);
   const handleFixedClick = (index: number) => () => handleFixed(index);
 
-  const handleCopyClick = (index: number) => async () => {
+  const handleCopyClick = (id: string, index: number) => async () => {
 
-    if (currentIndex === index) return;
+    if (currentId === id) return;
 
-    setCurrentIndex(index);
+    setCurrentId(id);
 
     const item = dataList[index];
     const {type,value,path} = item;
@@ -288,7 +288,7 @@ export const History = () => {
                   handleEdit={handleEditClick(item.id)}
                   handleSave={handleSaveClick(newIndex)}
                   handleFixed={handleFixedClick(newIndex)}
-                  handleCopy={handleCopyClick(newIndex)}
+                  handleCopy={handleCopyClick(item.id, newIndex)}
                   showMenu={menuState.menuId===item.id}
                   activeEdit={menuState.editId===item.id}
                 />
