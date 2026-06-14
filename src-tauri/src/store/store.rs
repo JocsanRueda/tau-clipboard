@@ -250,8 +250,8 @@ mod tests {
     #[test]
     fn test_default_settings() {
         let settings = default_settings();
-        assert_eq!(settings.expiration_time, 24);
-        assert_eq!(settings.language, "es");
+        assert_eq!(settings.expiration_time, 86400);
+        assert_eq!(settings.language, "en");
     }
 
     #[test]
