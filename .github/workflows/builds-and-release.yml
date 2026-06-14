@@ -47,7 +47,7 @@ jobs:
 
       # 4. Instalar dependencias del proyecto
       - name: Install frontend dependencies
-        run: pnpm install
+        run: pnpm install --force
 
       # 5. Build y Release Automático con Tauri Action
       # Esta acción compila el frontend, el backend (Rust), crea el .deb/.AppImage
